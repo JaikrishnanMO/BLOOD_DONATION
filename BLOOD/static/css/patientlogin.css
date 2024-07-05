@@ -1,0 +1,81 @@
+/* adminlogform.css */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    background-image: url("../images/img4.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.2); /* Increased transparency */
+}
+
+.container h2 {
+    margin-bottom: 20px;
+    color: #fff; /* White color for the header text */
+}
+span{
+    color: white;
+}
+form {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1); /* Fully transparent background for the form */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Slightly darker shadow */
+}
+
+form input[type="text"],
+form input[type="password"] {
+    width: 100%; /* Full width for inputs */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Semi-transparent border */
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.3); /* More transparent background for inputs */
+    color: #fff; /* White color for input text */
+}
+
+button {
+    margin-top: 5px;
+    padding: 10px 20px;
+    background-color: rgba(0, 123, 255, 0.3); /* Semi-transparent background */
+    color: #fff; /* White color for text */
+    border: 1px solid rgba(0, 123, 255, 0.5); /* Semi-transparent border */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition on hover */
+}
+
+button:hover {
+    background-color: rgba(0, 123, 255, 0.7); /* More opaque background on hover */
+    color: white; /* White text on hover */
+}
+
+p {
+    color: #fff; /* White color for paragraph text */
+}
+
+p a {
+    color: #007bff; /* Blue color for links */
+    text-decoration: none; /* No underline for links */
+}
+
+p a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+

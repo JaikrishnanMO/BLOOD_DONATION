@@ -1,0 +1,24 @@
+{% extends "Base.html" %}
+
+{% load static %}
+
+{% block Style %}
+<link rel='stylesheet' href="{% static "css/patientlogin.css" %}"/>
+{% endblock %}
+
+{% block Content%}
+
+<div class="container">
+    <h2>Patient Login</h2>
+    <form action="#" method="POST">
+        {% csrf_token %}
+        <span>Enter Email:</span>
+        <input type="text" placeholder="Enter Email" />
+        <br>
+        <span>Enter password:</span>
+        <input type="password" placeholder="Enter password"/>
+    </form>
+    <button>Login</button>
+    <p>if dont have account ? <a href="">Signup</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+/* nav.css */
+.navbar {
+    background-color: #8A0707;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1030; /* Ensure it appears above other content */
+}
+
+.container-fluid {
+    color: white;
+}
+
+.container-fluid:hover {
+    color: white;
+}
+
+.navbar-brand-custom {
+    color: #FFFFFF !important;
+    font-weight: bold;
+}
+
+.navbar-brand-custom,
+.navbar-nav .nav-link {
+    color: #FFFFFF !important; /* White color */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #CCCCCC !important; /* Light grey color on hover */
+}
+
+.dropdown-menu-custom {
+    margin-left: -30px !important;
+}

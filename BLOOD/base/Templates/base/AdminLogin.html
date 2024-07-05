@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin-login</title>
+    <link rel='stylesheet' href="{% static 'css/adminlogform.css' %}"/>
+</head>
+<body>
+    {% include "Navbar.html" %}
+    <div class="container">
+        <h2>Admin Login</h2>
+        <form action="" method="POST" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <span>Username:</span>
+            <input type="text"  name='username' placeholder="Enter Username" />
+            <br>
+            <span>Enter password:</span>
+            <input type="password" name='password' id='password' placeholder="Enter password"/>
+            <button type='submit'>Login</button>
+        </form>
+
+<script>
+
+    function validateForm()
+    {
+password=document.getElementById("password").value
+
+
+if(password=="")
+{
+    alert("pls enter a password")
+    return false
+}
+    
+return true
+    }
+
+</script>    </div>
+</body>
+</html>

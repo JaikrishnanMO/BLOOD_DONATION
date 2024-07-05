@@ -1,0 +1,26 @@
+{% extends "Base.html" %}
+
+{% load static %}
+
+{% block Style %}
+<link rel='stylesheet' href="{% static "css/donorlogin.css"%}"/>
+{% endblock %}
+
+{% block Content%}
+
+<div class="container">
+    <h2>Donor Login</h2>
+    <form action="#" method="POST">
+        {% csrf_token %}
+        <span>Enter Email:</span>
+        <input type="text" placeholder="Enter Email" />
+        <br>
+        <span>Enter password:</span>
+        <input type="password" placeholder="Enter password"/>
+
+        <button>Login</button>
+    </form>
+    <p>if dont have account ? <a href="{% url "donor_registration" %}">Signup</a></p>
+</div>
+
+{% endblock %}

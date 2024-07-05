@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Login</title>
+    <link rel='stylesheet' href="{% static 'css/DonorReg.css' %}"/>
+</head>
+<body>
+    {% include 'Navbar.html' %}
+    <div class="container">
+        <h2>Donor Login</h2>
+        <form  method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter Username:" />
+            </div>
+            <div class="form-group">
+                <label for="email">Enter email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter email:" />
+            </div>
+            <div class="form-group">
+                <label for="Blood_group">Select Blood Group:</label>
+                <select name="blood_group" id="Blood_group">
+                    <option value="">Select</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="phone">Enter Phone:</label>
+                <input type="number" id="phone" name="phone_number" placeholder="Enter Phone" />
+            </div>
+            <div class="form-group">
+                <label for="password">Enter password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter password" />
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</body>
+</html>
