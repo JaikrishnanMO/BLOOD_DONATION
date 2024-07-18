@@ -27,6 +27,10 @@ urlpatterns = [
     path('patient-feedback',views.patient_feedback,name='patient_feedback'),
     path('donor-feedback',views.donor_feedback,name='donor_feedback'),
     path('blood_request_accepted_details/<int:req_id>/', views.accepted_details_view, name='accepted_details_view'),
+    path('banpatient/<str:p_email>/', views.ban_patient, name='ban_patient'),
+    path('unbanpatient/<str:pU_email>/',views.unban_patient,name="unban_patient"),
+    path('banDonor/<str:d_email>/',views.ban_donor,name='ban_donor'),
+    path('unban/<str:dU_email>/',views.unban_donor, name="unban_donor"),
 ]
 
 

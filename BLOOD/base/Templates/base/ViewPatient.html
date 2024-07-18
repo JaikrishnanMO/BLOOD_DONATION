@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -37,25 +38,29 @@
                 <table class="table table-bordered table-hover table-striped table-center">
                     <thead class="thead-dark">
                         <tr>
-                            <th>ID</th>
                             <th>Username</th>
                             <th>Email</th>
-                            <th>Blood Group</th>
                             <th>Illness</th>
                             <th>Address</th>
                             <th>Phone</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for p in patient %}
                         <tr>
-                            <td>{{ p.id }}</td>
                             <td>{{ p.username }}</td>
                             <td>{{ p.email }}</td>
-                            <td>{{ p.blood_group }}</td>
                             <td>{{ p.illness }}</td>
                             <td>{{ p.address }}</td>
                             <td>{{ p.phone_number }}</td>
+                            <td>
+                                {% if p.status == 0 %}
+                                    <a href="{% url 'unban_patient' p.email %}" class="btn btn-danger"> UnBan </a>
+                                {% else %}
+                                    <a href="{% url 'ban_patient' p.email %}" class="btn btn-warning">Ban</a>
+                                {% endif %}
+                            </td> 
                         </tr>
                         {% endfor %}
                     </tbody>

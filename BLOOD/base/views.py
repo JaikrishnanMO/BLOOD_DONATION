@@ -83,13 +83,18 @@ def donor_login(request):
     if request.method == "POST":
         email = request.POST['email']
         password = request.POST['password']
-        donor = DonorModel.objects.filter(email=email, password=password).first()
+        donor = DonorModel.objects.filter(email=email, password=password,status=1).first()
 
         if donor is not None:
             request.session['donor_email'] = email
             return JsonResponse({'success': True}, safe=False)
         else:
-            return JsonResponse({'success': False}, safe=False)
+            donor_banned=DonorModel.objects.filter(email=email,status=0).exists()
+            if donor_banned:
+                return JsonResponse({"success": False, "message": "Account is banned."}, safe=False)
+            else:
+                return JsonResponse({'success': False}, safe=False)
+            
     return render(request, 'base/DonorLogin.html')
 
 def patient_login(request):
@@ -99,13 +104,17 @@ def patient_login(request):
     if request.method == "POST":
         email = request.POST['email']
         password = request.POST['password']
-        patient = PatientModel.objects.filter(email=email, password=password).first()
+        patient = PatientModel.objects.filter(email=email, password=password, status=1).first()
 
         if patient is not None:
             request.session["patient_email"] = email
             return JsonResponse({"success": True}, safe=False)
         else:
-            return JsonResponse({"success": False, "message": "Invalid credentials."}, safe=False)
+            patient_banned = PatientModel.objects.filter(email=email, status=0).exists()
+            if patient_banned:
+                return JsonResponse({"success": False, "message": "Account is banned."}, safe=False)
+            else:
+                return JsonResponse({"success": False, "message": "Invalid credentials."}, safe=False)
     
     return render(request, "base/PatientLogin.html")
 
@@ -378,5 +387,48 @@ def admin_feedback_view(request):
         return render(request,"base/ViewFeedback.html",context)
 
 
+def ban_patient(request, p_email):
+    try:
+        patient = PatientModel.objects.get(email=p_email)
+        patient.status = 0  
+        patient.save()
+        # response = JsonResponse({'success': True, "message": "Account banned successfully"})
+        return redirect('view_patient')
+    except PatientModel.DoesNotExist:
+        response = JsonResponse({'success': False, "message": "Patient not found"})
+        return response
 
-                
+
+def unban_patient(request,pU_email):
+    try:
+        patient = PatientModel.objects.get(email=pU_email)
+        patient.status=1
+        patient.save()
+        return redirect('view_patient')
+    except PatientModel.DoesNotExist:
+        response = JsonResponse({'success': False, "message": "Patient not found"})
+    return response
+
+
+def ban_donor(request,d_email):
+    try:
+        donor= DonorModel.objects.get(email=d_email)
+        donor.status=0
+        donor.save()
+        return redirect('view_donor')
+    except PatientModel.DoesNotExist:
+        response = JsonResponse({'success': False, "message": "Donor not found"})
+    return response
+
+
+def unban_donor(request,dU_email):
+    try:
+        donor= DonorModel.objects.get(email=dU_email)
+        donor.status=1
+        donor.save()
+        return redirect('view_donor')
+    except PatientModel.DoesNotExist:
+        response = JsonResponse({'success': False, "message": "Donor not found"})
+    return response
+    
+

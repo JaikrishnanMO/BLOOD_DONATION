@@ -48,7 +48,7 @@
                         alert('User loggedin Successfully done');
                         window.location.replace('{% url "donor_home" %}');
                     } else {
-                        alert('User is not authenticated');
+                        alert(data.message);
                     }
                 }
             });

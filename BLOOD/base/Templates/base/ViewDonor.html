@@ -37,26 +37,32 @@
                 <table class="table table-bordered table-hover table-striped table-center">
                     <thead class="thead-dark">
                         <tr>
-                            <th>ID</th>
                             <th>Username</th>
                             <th>Email</th>
                             <th>Blood Group</th>
                             <th>Phone</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for d in donor %}
                         <tr>
-                            <td>{{ d.id }}</td>
                             <td>{{ d.username }}</td>
                             <td>{{ d.email }}</td>
                             <td>{{ d.blood_group }}</td>
                             <td>{{ d.phone_number }}</td>
+                            <td>
+                                {% if d.status == 0 %}
+                                <a href="{% url 'unban_donor' d.email %}" class="btn btn-danger">UnBan</a>
+                                {% else %}
+                                <a href="{% url 'ban_donor' d.email %}" class="btn btn-warning">Ban</a>
+                                {% endif %}
+                            </td>
                         </tr>
                         {% empty %}
-                        <div class="col-md-12">
-                            <p>Donor List is Empty.</p>
-                        </div>
+                        <tr>
+                            <td colspan="6" class="text-center">Donor List is Empty.</td>
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
