@@ -42,6 +42,7 @@
                     <thead class="table-dark">
                         <tr>
                             <th>Username</th>
+                            <th>user_type</th>
                             <th>Feedback</th>
                         </tr>
                     </thead>
@@ -49,7 +50,9 @@
                         {% for f in feedback %}
                         <tr>
                             <td>{{ f.username }}</td>
+                            <td>{{f.user_type}}</td>
                             <td>{{ f.text }}</td>
+                            
                         </tr>
                         {% empty %}
                         <tr>

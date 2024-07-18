@@ -353,9 +353,11 @@ def patient_feedback(request):
         feedback = request.POST.get('feedback')
         username = request.session.get('patient_email')
         print('username',username)
+        user_type="patient"
 
         feedback_obj = Feedback(
             username=username,
+            user_type=user_type,
             text=feedback
         )
         feedback_obj.save()
@@ -369,9 +371,11 @@ def donor_feedback(request):
     if request.method == "POST":
         feedback = request.POST.get('feedback')
         username = request.session.get('donor_email')
+        user_type="Donor"
 
         feedback_obj = Feedback(
             username=username,
+            user_type=user_type,
             text=feedback
         )
         feedback_obj.save()

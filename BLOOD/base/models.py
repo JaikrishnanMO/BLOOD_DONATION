@@ -93,6 +93,7 @@ class Blood_accept(models.Model):
 
 class Feedback(models.Model):
     username=models.CharField(max_length=200)
+    user_type=models.CharField(max_length=200)
     text = models.TextField()
 
     def __str__(self):
