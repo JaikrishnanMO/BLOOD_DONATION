@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.side-navbar {
+    width: 250px;
+    background-color: #8A0707;
+}
+
+.side-navbar .navbar-brand {
+    color: white;
+    text-align: center;
+    font-size: 1.5rem; /* Adjust font size as needed */
+}
+
+.side-navbar .navbar-nav {
+    width: 100%; /* Ensures nav items take full width */
+}
+
+.side-navbar .nav-link {
+    color: white;
+    padding: 10px 15px;
+    text-align: center; /* Center align nav links */
+}
+
+.side-navbar .nav-link:hover {
+    background-color: #495057;
+}
+
+.content {
+    background-color: #f8f9fa;
+    padding: 20px;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.content h1 {
+    margin-top: 0;
+}
+
+.content .btn {
+    margin-top: 10px;
+}
+
+.welcome-message {
+    font-size: 2rem; /* Example styling for the welcome message */
+    color: #333; /* Example color */
+    margin-bottom: 20px; /* Example margin */
+}

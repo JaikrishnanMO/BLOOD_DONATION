@@ -1,0 +1,71 @@
+/* General body styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #8A0707;
+    color: white;
+}
+
+/* Sidebar styling */
+#sidebarMenu {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    width: 250px;
+    background-color: #343a40;
+}
+
+.sidebar-heading {
+    color: #8A0707;
+    font-size: 1.5rem;
+    padding: 10px;
+}
+
+.mt-custom {
+    margin-top: 180px;
+}
+
+.nav-link {
+    font-size: 1.1rem;
+    padding: 10px 15px;
+    color: #adb5bd;
+}
+
+.nav-link.active {
+    font-weight: bold;
+    background-color: #495057;
+    color: #fff;
+}
+
+.nav-link:hover {
+    background-color: #495057;
+    color: #fff;
+}
+
+.nav-link i {
+    margin-right: 8px;
+}
+
+/* Main content styling */
+main {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+h1.h2 {
+    margin-bottom: 20px;
+}
+
+button.btn-light {
+    margin-top: 10px;
+}
+
+button.btn-light:hover {
+    background-color: red;
+}
+
+/* Center h3 styling */
+h3.text-center {
+    color: white;
+}

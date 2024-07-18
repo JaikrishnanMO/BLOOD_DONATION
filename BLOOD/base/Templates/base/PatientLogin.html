@@ -13,12 +13,46 @@
     <form action="#" method="POST">
         {% csrf_token %}
         <span>Enter Email:</span>
-        <input type="text" placeholder="Enter Email" />
+        <input type="text" id='email' name='email' placeholder="Enter Email" />
         <br>
         <span>Enter password:</span>
-        <input type="password" placeholder="Enter password"/>
+        <input type="password"id='password' name='password' placeholder="Enter password"/>
     </form>
-    <button>Login</button>
-    <p>if dont have account ? <a href="">Signup</a></p>
+    <button type"button" id='btn1'>Login</button>
+    <p>if dont have account ? <a href="{% url "patient_registration"%}">Signup</a></p>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $('#btn1').click(()=>{
+        var email =$('#email').val()
+        var password =$('#password').val()
+        var data={
+            'csrfmiddlewaretoken':'{{csrf_token}}',
+            'email':email,
+            'password':password
+        };
+        console.log(data)
+        if(email === ""){
+            alert('Enter email address');
+        }else if (password === ""){
+            alert('Enter password Field');
+        } else {
+            $.ajax({
+                url:'{%  url "patient_login" %}',
+                method:"POST",
+                data:data,
+                dataType:'json',
+                'success':function(data){
+                    if (data.success){
+                        alert('User Logged in Successfully')
+                        window.location.replace('{% url "patient_home" %}');
+
+                    }else {
+                        alert('User is not authenticated')
+                    }
+                }
+            })
+        }
+    })
+</script>
 {% endblock %}

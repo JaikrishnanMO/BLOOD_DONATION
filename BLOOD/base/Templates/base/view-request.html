@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blood Requests</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    {% include "SideNavbar.html" %}
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Blood Requests</h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                {% for blood in bloodreq %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Blood Request</h5>
+                            <p class="card-text"><strong>Username:</strong> {{ blood.username }}</p>
+                            <p class="card-text"><strong>Blood Group:</strong> {{ blood.blood_group }}</p>
+                            <p class="card-text"><strong>Required Unit:</strong> {{ blood.unit }}</p>
+                            <p class="card-text"><strong>Request Date:</strong> {{ blood.needed_date_time }}</p>
+                            {% if blood.id in accepted_ids  %}
+                                <button class="btn btn-secondary" disabled>Accepted</button>
+                            {% else %}
+                                <a href="{% url 'blood_approve' blood.id %}" class="btn btn-success blood-approve-btn" data-blood-id="{{ blood.id }}">Accept</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>  
+                {% empty %}
+                <div class="col-md-12">
+                    <p>No Requests found.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+</body>
+</html>

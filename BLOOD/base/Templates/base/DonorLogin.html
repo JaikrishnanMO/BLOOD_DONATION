@@ -3,24 +3,57 @@
 {% load static %}
 
 {% block Style %}
-<link rel='stylesheet' href="{% static "css/donorlogin.css"%}"/>
+<link rel='stylesheet' href="{% static "css/donorlogin.css" %}"/>
 {% endblock %}
 
-{% block Content%}
+{% block Content %}
 
 <div class="container">
     <h2>Donor Login</h2>
     <form action="#" method="POST">
         {% csrf_token %}
         <span>Enter Email:</span>
-        <input type="text" placeholder="Enter Email" />
+        <input type="text" name="email" id="email" placeholder="Enter Email" />
         <br>
         <span>Enter password:</span>
-        <input type="password" placeholder="Enter password"/>
+        <input type="password" name="password" id="password" placeholder="Enter password"/>
 
-        <button>Login</button>
+        <button type="button" id='btn1'>Login</button>
     </form>
-    <p>if dont have account ? <a href="{% url "donor_registration" %}">Signup</a></p>
+    <p>If you don't have an account? <a href="{% url "donor_registration" %}">Signup</a></p>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $('#btn1').click(() => {
+        var email = $('#email').val();
+        var password = $('#password').val();
+        var data = {
+            'csrfmiddlewaretoken': '{{ csrf_token }}',
+            'email': email,
+            'password': password
+        };
+        if (email == "") {
+            alert('Enter valid email');
+        } else if (password == "") {
+            alert('Enter valid password');
+        } else {
+            $.ajax({
+                url: 'Donor-Login',
+                method: 'POST',
+                data: data,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.success) {
+                        alert('User loggedin Successfully done');
+                        window.location.replace('{% url "donor_home" %}');
+                    } else {
+                        alert('User is not authenticated');
+                    }
+                }
+            });
+        }
+    });
+</script>
 
 {% endblock %}

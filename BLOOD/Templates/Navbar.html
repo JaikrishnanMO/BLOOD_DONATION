@@ -18,16 +18,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="{% url "home" %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Admin</a>
+                        <a class="nav-link active" href="{% url "admin_home" %}">Admin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-disabled="true">Donor</a>
+                        <a class="nav-link active" href="{% url "donor_home" %}">Donor</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-disabled="true">Patient</a>
+                        <a class="nav-link active" href="{% url 'patient_home' %}">Patient</a>
                     </li>
                 </ul>
                 <div class="nav-item dropdown ms-auto">

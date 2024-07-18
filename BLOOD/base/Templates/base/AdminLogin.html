@@ -11,32 +11,47 @@
     {% include "Navbar.html" %}
     <div class="container">
         <h2>Admin Login</h2>
-        <form action="" method="POST" onsubmit="return validateForm()">
+        <form action="" method="POST">
             {% csrf_token %}
             <span>Username:</span>
-            <input type="text"  name='username' placeholder="Enter Username" />
+            <input type="text" name='username' id='username' placeholder="Enter Username" />
             <br>
             <span>Enter password:</span>
             <input type="password" name='password' id='password' placeholder="Enter password"/>
-            <button type='submit'>Login</button>
+            <button type='button' id="btn1">Login</button>
         </form>
-
-<script>
-
-    function validateForm()
-    {
-password=document.getElementById("password").value
-
-
-if(password=="")
-{
-    alert("pls enter a password")
-    return false
-}
-    
-return true
-    }
-
-</script>    </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $('#btn1').click(() => {
+            var username = $('#username').val();
+            var password = $('#password').val();
+            var data = {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'username': username,
+                'password': password
+            };
+            if (username == "") {
+                alert("Enter valid username");
+            } else if (password == "") {
+                alert("Enter valid password");
+            } else {
+                $.ajax({
+                    url: '{% url "admin_login" %}',
+                    method: 'POST',
+                    data: data,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.success) {
+                            alert('Logged in Successfully');
+                            window.location.replace('{% url "admin_home" %}');
+                        } else {
+                            alert('User is not authenticated');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

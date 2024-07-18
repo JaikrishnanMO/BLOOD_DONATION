@@ -11,7 +11,7 @@
     {% include 'Navbar.html' %}
     <div class="container">
         <h2>Donor Login</h2>
-        <form  method="POST" enctype="multipart/form-data">
+        <form method="POST">
             {% csrf_token %}
             <div class="form-group">
                 <label for="username">Username:</label>
@@ -40,11 +40,110 @@
                 <input type="number" id="phone" name="phone_number" placeholder="Enter Phone" />
             </div>
             <div class="form-group">
+                <label for="weight">Enter Weight (kg):</label>
+                <input type="number" id="weight" name="weight" placeholder="Enter Weight" />
+            </div>
+            <div class="form-group">
+                <label for="age">Enter Age:</label>
+                <input type="number" id="age" name="age" placeholder="Enter Age" />
+            </div>
+            <div class="form-group">
                 <label for="password">Enter password:</label>
                 <input type="password" id="password" name="password" placeholder="Enter password" />
             </div>
-            <button type="submit">Sign Up</button>
+            <button type="button" id="btn1">Sign Up</button>
         </form>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $('#btn1').click(() => {
+            var username = $('#username').val();
+            var email = $('#email').val();
+            var blood_group = $('#Blood_group').val();
+            var phone_number = $('#phone').val();
+            var weight = $('#weight').val();
+            var age = $('#age').val();
+            var password = $('#password').val();
+            
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var phoneRegex = /^\d{10}$/;
+            var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+            var data = {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'username': username,
+                'email': email,
+                'blood_group': blood_group,
+                'phone_number': phone_number,
+                'weight': weight,
+                'age': age,
+                'password': password
+            };
+            
+            if (username === "") {
+                alert("Username field is empty");
+                return;
+            }
+            if (email === "") {
+                alert("Email field is empty");
+                return;
+            }
+            if (!emailRegex.test(email)) {
+                alert("Enter a valid email");
+                return;
+            }
+            if (blood_group === "") {
+                alert("Blood group field is empty");
+                return;
+            }
+            if (phone_number === "") {
+                alert("Phone number field is empty");
+                return;
+            }
+            if (!phoneRegex.test(phone_number)) {
+                alert("Enter a valid 10-digit phone number");
+                return;
+            }
+            if (weight === "") {
+                alert("Weight field is empty");
+                return;
+            }
+            if (weight <= 50) {
+                alert("Weight must be greater than 50 kg");
+                return;
+            }
+            if (age === "") {
+                alert("Age field is empty");
+                return;
+            }
+            if (age < 18) {
+                alert("Age must be 18 or older");
+                return;
+            }
+            if (password === "") {
+                alert("Password field is empty");
+                return;
+            }
+            if (!passwordRegex.test(password)) {
+                alert("Password must be at least 8 characters long, contain letters and numbers");
+                return;
+            } else {
+                $.ajax({
+                    url: '{% url "donor_registration" %}',
+                    method: 'POST',
+                    data: data,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.success) {
+                            alert("User registered successfully");
+                            window.location.replace("{% url 'donor_login' %}");
+                        } else {
+                            alert('Email already exists');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

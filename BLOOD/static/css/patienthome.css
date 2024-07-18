@@ -1,0 +1,59 @@
+/* patienthome.css */
+
+/* Style for the navbar */
+.side-navbar {
+    background-color: #343a40;
+    height: 100vh;
+}
+
+.navbar-brand-custom {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.navbar-nav .nav-link {
+    color: #c0c0c0;
+    margin: 0.5rem 0;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: #fff;
+}
+
+/* Style for the main content */
+.content {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-message {
+    font-size: 1.75rem;
+    color: #343a40;
+    margin-bottom: 1.5rem;
+}
+
+.divtable-view h2 {
+    color: #007bff;
+}
+
+/* Style for the blood group text */
+.blood-group {
+    color: red;
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin-top: 1rem;
+}
+
+/* Style for the logout button */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}

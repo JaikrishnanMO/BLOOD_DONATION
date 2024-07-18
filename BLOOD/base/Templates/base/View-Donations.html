@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% include "SideNavbar.html" %}
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Blood Requests</h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                {% for donation in donation_data %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">My donations</h5>
+                            <p class="card-text"><strong>Blood-Request-id:</strong> {{ donation.blood_request_id }}</p>
+                            <p class="card-text"><strong>Unit Donated:</strong> {{ donation.unit }}</p>
+                            <p class="card-text"><strong>Date:</strong> {{ donation.updated }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-md-12">
+                    <p>No donations found.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+</body>
+</html>

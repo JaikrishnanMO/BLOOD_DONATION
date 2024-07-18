@@ -1,0 +1,16 @@
+/* bloodrequest.css */
+
+/* Reduce height of form inputs */
+.form-control {
+    height: 38px; /* Adjust the height as per your design */
+}
+
+/* Increase height of description textarea */
+.form-control-description {
+    height: 120px; /* Adjust the height as needed */
+}
+
+/* Add margin to form groups */
+.form-group {
+    margin-bottom: 1.5rem; /* Adjust the margin bottom as per your design */
+}

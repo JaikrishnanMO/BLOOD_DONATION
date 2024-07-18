@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Feedback View</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/viewfeedback.css' %}">
+</head>
+<body>
+    <div class="d-flex flex-column flex-lg-row vh-100">
+        <!-- Sidebar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark flex-lg-column side-navbar p-3">
+            <a class="navbar-brand mb-4" href="#">Admin Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav flex-column text-center w-100">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'admin_home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'view_patient' %}">View Patients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'view_donor' %}">View Donor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'view_feedback' %}">Feedback</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="flex-grow-1 d-flex flex-column align-items-center justify-content-center p-3">
+            <h1 class="mb-4">Feedback List</h1>
+            <div class="table-responsive w-100">
+                <table class="table table-bordered table-hover table-striped text-center">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Username</th>
+                            <th>Feedback</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for f in feedback %}
+                        <tr>
+                            <td>{{ f.username }}</td>
+                            <td>{{ f.text }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3">Feedback List is Empty.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

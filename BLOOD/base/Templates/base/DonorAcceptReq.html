@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accept request</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    {% include "SideNavbar.html" %}
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Welcome, {{ donor.username }}</h1>
+            <a href="{% url 'patient_logout' %}">
+                <button class="btn btn-light">Logout</button>
+            </a>
+        </div>
+        <div class="container">
+            <form id="donateForm" method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="form-group mb-3">
+                    <label>Have you donated blood in the last 3 months?</label>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="donated_recently_yes" name="donated_recently" value="yes" required>
+                        <label class="form-check-label" for="donated_recently_yes">Yes</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="donated_recently_no" name="donated_recently" value="no" required>
+                        <label class="form-check-label" for="donated_recently_no">No</label>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label>Are you currently taking any medications?</label>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="taking_medications_yes" name="taking_medications" value="yes" required>
+                        <label class="form-check-label" for="taking_medications_yes">Yes</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="taking_medications_no" name="taking_medications" value="no" required>
+                        <label class="form-check-label" for="taking_medications_no">No</label>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label>Have you ever been diagnosed with any infectious diseases?</label>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="infectious_diseases_yes" name="infectious_diseases" value="yes" required>
+                        <label class="form-check-label" for="infectious_diseases_yes">Yes</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="infectious_diseases_no" name="infectious_diseases" value="no" required>
+                        <label class="form-check-label" for="infectious_diseases_no">No</label>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label>Are you willing to undergo a health screening before donating?</label>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="health_screening_yes" name="health_screening" value="yes" required>
+                        <label class="form-check-label" for="health_screening_yes">Yes</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="health_screening_no" name="health_screening" value="no" required>
+                        <label class="form-check-label" for="health_screening_no">No</label>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label>Do you consent to your blood being used for research purposes if it cannot be used for transfusion?</label>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="consent_research_yes" name="consent_research" value="yes" required>
+                        <label class="form-check-label" for="consent_research_yes">Yes</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="consent_research_no" name="consent_research" value="no" required>
+                        <label class="form-check-label" for="consent_research_no">No</label>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="unit">Enter Unit</label>
+                    <input type="number" min="1" max="5" class="form-control" name="unit" id="unit" placeholder="Enter unit" required>
+                    <div class="invalid-feedback">Please enter a unit.</div>
+                </div>
+                <button type="button" id="btn1" class="btn btn-primary">Submit</button>
+            </form>
+        </div>   
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $('#btn1').click(() => {
+            var donated_recently = $('input[name="donated_recently"]:checked').val();
+            var taking_medications = $('input[name="taking_medications"]:checked').val();
+            var infectious_diseases = $('input[name="infectious_diseases"]:checked').val();
+            var health_screening = $('input[name="health_screening"]:checked').val();
+            var consent_research = $('input[name="consent_research"]:checked').val();
+            var unit = $('#unit').val();
+
+            if (donated_recently === "yes") {
+                alert('Sorry, you cannot donate blood if you have donated in the last 3 months.');
+                return;
+            }
+            if (taking_medications=== "yes") {
+                alert('Sorry, you cannot donate blood if you have taking medications.');
+                return;
+            }
+            if (infectious_diseases === "yes") {
+                alert('Sorry, you cannot donate blood if you have infectious_diseases');
+                return;
+            }
+            if (health_screening === "no") {
+                alert('Sorry, you must want to undergo for undergo a health screening before donating.');
+                return;
+            }
+            
+
+            if (taking_medications === "yes" || infectious_diseases === "yes" || health_screening === "no") {
+                    alert('If you have selected "Yes" for any other option, please review your answers before continuing.');
+                    return;
+                }
+
+            var data = {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'donated_recently': donated_recently,
+                'taking_medications': taking_medications,
+                'infectious_diseases': infectious_diseases,
+                'health_screening': health_screening,
+                'consent_research': consent_research,
+                'unit': unit
+            };
+
+            // Validate form fields
+            if (!donated_recently || !taking_medications || !infectious_diseases || !health_screening || !consent_research ) {
+                alert('Please fill out all fields.');
+                return;
+            }
+            if (unit === '' || isNaN(unit)) {
+                alert('Please enter a valid unit number.');
+                return;
+            }
+            if (unit < 1 || unit > 5) {
+                alert('You must donate between 1 and 5 units.');
+                return;
+            }
+
+            // Perform AJAX request
+            $.ajax({
+                url: '{% url "blood_approve" pk=blood_id %}',
+                method: "POST",
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    if (data.success) {
+                        alert('Donation successfully recorded.');
+                        window.location.replace("{% url 'view_requests' %}");
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while processing your request.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

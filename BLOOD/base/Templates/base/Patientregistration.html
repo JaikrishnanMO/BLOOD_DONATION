@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Registration</title>
+    <link rel='stylesheet' href='{% static "css/patientReg.css" %}'/>
+</head>
+<body>
+    {% include 'Navbar.html' %}
+    <div class="container">
+        <h2>Patient Registrtion </h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter Username:" value="{{ username }}" />
+            </div>
+            <div class="form-group">
+                <label for="email">Enter email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter email:" value="{{ email }}" />
+            </div>
+            
+            <div class="form-group">
+                <label for="address">Enter address:</label>
+                <input type="text" id="address" name="address" placeholder="Enter address" value="{{ address }}" />
+            </div>
+            <div class="form-group">
+                <label for="phone">Enter Phone:</label>
+                <input type="number" id="phone_number" name="phone_number" placeholder="Enter Phone" value="{{ phone_number }}" />
+            </div>
+            <div class="form-group">
+                <label for="illness">Enter illness:</label>
+                <input type="text" id="illness" name="illness" placeholder="Enter illness" value="{{ illness }}" />
+            </div>
+            <div class="form-group">
+                <label for="password">Enter password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter password" value="{{ password }}" />
+            </div>
+            <button type="button" id='btn1'>Sign Up</button>
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $('#btn1').click(()=>{
+            var username = $('#username').val()
+            var email    =$('#email').val()
+            var address   =$('#address').val()
+            var phone_number = $('#phone_number').val()
+            var illness = $('#illness').val()
+            var password = $('#password').val()
+
+
+
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var phoneRegex = /^\d{10}$/;
+            var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+            var data ={
+                'csrfmiddlewaretoken':'{{csrf_token}}',
+                'username':username,
+                'email':email,
+                'address':address,
+                'phone_number':phone_number,
+                'illness':illness,
+                'password':password
+            };
+            console.log(data)
+            if(username === ""){
+                alert('Enter username');
+                return;
+            }
+            if(email === ""){
+                alert('Email Field is empty');
+                return;
+            }
+            if(!emailRegex.test(email)){
+                alert('Enter a  valid email');
+                return;
+            }
+            if(address === ""){
+                alert('address Field is empty');
+                return;
+            }
+            if(phone_number === ""){
+                alert("Phone number field is empty");
+                return;
+            }
+            if(!phoneRegex.test(phone_number)){
+                alert("phone must have 10 number");
+                return;
+            }
+            if(illness === ""){
+                alert(' illness field is empty');
+                return;
+            }
+            if(password === ""){
+                alert('Password Fild is empty');
+                return;
+            }
+            if(!passwordRegex.test(password)){
+                alert('Password must be at least 8 characters long, contain letters and numbers');
+                return;
+            } else {
+                $.ajax({
+                    url:'{% url "patient_registration" %}',
+                    method:"POST",
+                    data:data,
+                    dataType:"json",
+                    success: function(data){
+                        if (data.success){
+                            alert('Patient Registered  successfully');
+                            window.location.replace("{% url 'patient_login' %}");
+                        }else{
+                            alert('Email is alredy Exit')
+                        }
+                    }
+                })
+            }
+        });
+    </script>
+</body>
+</html>
